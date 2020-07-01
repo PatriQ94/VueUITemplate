@@ -1,15 +1,11 @@
 <template>
-    <div>
-      This is a login page
+  <div>
+    This is a login page
   </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
-<style>
-
-</style>
+<style></style>
