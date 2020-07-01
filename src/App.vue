@@ -14,7 +14,6 @@
         <router-link :to="{ name: 'register' }">Register</router-link>
       </li>
     </ul>
-
     <router-view></router-view>
   </div>
 </template>
