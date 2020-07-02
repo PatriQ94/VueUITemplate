@@ -8,22 +8,26 @@ As of now it goes hand in hand with my other projects such as my
 **The main purpose of the project is to be used as a reference implementation in case of need.**
 
 ### Build and run
+
 ```
 npm install
 ```
 
 #### Compiles and hot-reloads for development
+
 ```
 npm run serve
 ```
 
 #### Compiles and minifies for production
+
 ```
 npm run build
 ```
 
 ### Changelog (major changes)
 
- Edited |Comment |
------- |------ |
-7.1.2020 | Project creation, added storage, added routing |
+| Edited   | Comment                                        |
+| -------- | ---------------------------------------------- |
+| 1.7.2020 | Project creation, added storage, added routing |
+| 2.7.2020 | Added Vuetify, added login UI                  |

@@ -1,67 +1,43 @@
 <template>
-  <div id="app">
-    <ul class="nav">
-      <li>
-        <router-link :to="{ name: 'home' }">Home</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'about' }">About</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'login' }">Login</router-link>
-      </li>
-      <li>
-        <router-link :to="{ name: 'register' }">Register</router-link>
-      </li>
-    </ul>
-    <router-view></router-view>
-  </div>
+  <v-app>
+    <v-app-bar app>
+      <!-- -->
+    </v-app-bar>
+    <v-app-bar app>
+      <v-toolbar-title class="headline">
+        <span>Car</span>
+        <span class="font-weight-light">API</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn text to="/">
+        <span>Home</span>
+      </v-btn>
+      <v-btn text to="/about">
+        <span>About</span>
+      </v-btn>
+      <v-btn text to="/login">
+        <span>Login</span>
+      </v-btn>
+      <v-btn text to="/register">
+        <span>Register</span>
+      </v-btn>
+      <v-btn text>
+        <span>Logout</span>
+        <v-icon right>exit_to_app</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <!-- Main content with vue-router-->
+    <v-main>
+      <v-container fluid>
+        <router-view></router-view>
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "App",
+};
 </script>
-
-<style>
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  font-size: 24px;
-  color: #2c3e50;
-  height: 100vh;
-}
-
-.flex-center {
-  display: flex;
-  justify-content: center;
-}
-
-.nav {
-  display: flex;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  justify-content: flex-end;
-  background: #f5f8fa;
-  border-bottom: 1px solid lightgray;
-  margin-bottom: 24px;
-}
-
-.nav a {
-  color: #636b6f;
-  padding: 0 25px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
-  text-decoration: none;
-  text-transform: uppercase;
-}
-</style>
