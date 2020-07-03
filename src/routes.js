@@ -3,7 +3,6 @@ import About from "./components/general/About.vue";
 import Garage from "./components/general/Garage.vue";
 import Login from "./components/auth/Login.vue";
 import Logout from "./components/auth/Logout.vue";
-import Register from "./components/auth/Register.vue";
 
 const routes = [
   {
@@ -12,6 +11,7 @@ const routes = [
     component: LandingPage,
     meta: {
       requiresVisitor: true,
+      title: "Home",
     },
   },
   {
@@ -20,6 +20,7 @@ const routes = [
     component: Garage,
     meta: {
       requiresAuth: true,
+      title: "Garage",
     },
   },
   {
@@ -28,6 +29,7 @@ const routes = [
     component: About,
     meta: {
       requiresAuth: true,
+      title: "About",
     },
   },
   {
@@ -36,14 +38,7 @@ const routes = [
     component: Login,
     meta: {
       requiresVisitor: true,
-    },
-  },
-  {
-    path: "/Register",
-    name: "register",
-    component: Register,
-    meta: {
-      requiresVisitor: true,
+      title: "Login",
     },
   },
   {

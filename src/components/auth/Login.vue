@@ -1,11 +1,11 @@
 <template>
   <v-container>
-    <v-card width="400" class="mx-auto mt5" :elevation="20">
+    <v-card width="400" class="mx-auto mt5" :elevation="20" :loading="loading">
       <v-card-title>
         <h1 class="display-1">Login</h1>
       </v-card-title>
       <v-card-text>
-        <v-form>
+        <v-form v-model="valid">
           <v-text-field
             label="Email"
             v-model="email"
@@ -20,6 +20,7 @@
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
             :error-messages="errorMessages"
+            @input="passwordChange()"
           />
         </v-form>
       </v-card-text>
@@ -38,6 +39,8 @@ export default {
   name: "login",
   data() {
     return {
+      loading: false,
+      valid: false,
       email: "",
       password: "",
       showPassword: false,
@@ -53,6 +56,10 @@ export default {
   },
   methods: {
     login() {
+      if (this.valid == false) {
+        return;
+      }
+      this.loading = true;
       this.$store
         .dispatch("login", {
           email: this.email,
@@ -60,11 +67,18 @@ export default {
         })
         .then(response => {
           this.$router.push({ name: "garage" });
+          this.loading = false;
           return response;
         })
         .catch(error => {
           this.errorMessages = error;
+          this.loading = false;
         });
+    },
+    passwordChange() {
+      if (this.errorMessages != "") {
+        this.errorMessages = "";
+      }
     }
   }
 };

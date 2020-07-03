@@ -67,6 +67,18 @@ export const store = new Vuex.Store({
         });
       }
     },
+    checkConnection() {
+      return new Promise((resolve, reject) => {
+        axios
+          .get("Auth/Ping")
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
   },
   mutations: {
     login(state, tokens) {
