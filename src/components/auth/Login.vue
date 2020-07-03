@@ -1,16 +1,12 @@
 <template>
   <v-container>
-    <v-card width="400" class="mx-auto mt5">
+    <v-card width="400" class="mx-auto mt5" :elevation="20">
       <v-card-title>
         <h1 class="display-1">Login</h1>
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field
-            label="Email"
-            v-model="email"
-            prepend-icon="mdi-account-circle"
-          />
+          <v-text-field label="Email" v-model="email" prepend-icon="mdi-account-circle" />
           <v-text-field
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
@@ -38,17 +34,17 @@ export default {
     return {
       email: "",
       password: "",
-      showPassword: false,
+      showPassword: false
     };
   },
   methods: {
     login() {
       this.$store.dispatch("login", {
         email: this.email,
-        password: this.password,
+        password: this.password
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
