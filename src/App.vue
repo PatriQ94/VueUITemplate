@@ -9,19 +9,22 @@
         <span class="font-weight-light">API</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn text to="/">
+      <v-btn v-if="!loggedIn" text to="/">
         <span>Home</span>
       </v-btn>
-      <v-btn text to="/about">
+      <v-btn v-if="loggedIn" text to="/garage">
+        <span>Garage</span>
+      </v-btn>
+      <v-btn v-if="loggedIn" text to="/about">
         <span>About</span>
       </v-btn>
-      <v-btn text to="/login">
+      <v-btn v-if="!loggedIn" text to="/login">
         <span>Login</span>
       </v-btn>
-      <v-btn text to="/register">
+      <v-btn v-if="!loggedIn" text to="/register">
         <span>Register</span>
       </v-btn>
-      <v-btn text>
+      <v-btn v-if="loggedIn" text to="/logout">
         <span>Logout</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
@@ -39,5 +42,10 @@
 <script>
 export default {
   name: "App",
+  computed: {
+    loggedIn() {
+      return this.$store.getters.loggedIn;
+    }
+  }
 };
 </script>

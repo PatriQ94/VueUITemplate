@@ -6,7 +6,12 @@
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field label="Email" v-model="email" prepend-icon="mdi-account-circle" />
+          <v-text-field
+            label="Email"
+            v-model="email"
+            prepend-icon="mdi-account-circle"
+            :rules="[rules.required, rules.email]"
+          />
           <v-text-field
             v-model="password"
             :type="showPassword ? 'text' : 'password'"
@@ -14,6 +19,7 @@
             prepend-icon="mdi-lock"
             :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
             @click:append="showPassword = !showPassword"
+            :error-messages="errorMessages"
           />
         </v-form>
       </v-card-text>
@@ -34,15 +40,31 @@ export default {
     return {
       email: "",
       password: "",
-      showPassword: false
+      showPassword: false,
+      errorMessages: "",
+      rules: {
+        required: value => !!value || "Required.",
+        email: value => {
+          const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return pattern.test(value) || "Invalid e-mail.";
+        }
+      }
     };
   },
   methods: {
     login() {
-      this.$store.dispatch("login", {
-        email: this.email,
-        password: this.password
-      });
+      this.$store
+        .dispatch("login", {
+          email: this.email,
+          password: this.password
+        })
+        .then(response => {
+          this.$router.push({ name: "garage" });
+          return response;
+        })
+        .catch(error => {
+          this.errorMessages = error;
+        });
     }
   }
 };
