@@ -6,7 +6,7 @@ import axios from "axios";
 Vue.use(Vuex);
 
 //Set default URL for axios
-axios.defaults.baseURL = "https://localhost:5001/api/";
+axios.defaults.baseURL = "https://localhost:5001";
 // axios.defaults.headers.common["Authorization"] =
 //   "Bearer " + context.state.accessToken;
 
@@ -22,10 +22,10 @@ export const store = new Vuex.Store({
     },
   },
   actions: {
-    login(context, credentials) {
+    loginOrRegister(context, credentials) {
       return new Promise((resolve, reject) => {
         axios
-          .post("Auth/Login", {
+          .post("/api/Auth/" + credentials.route, {
             email: credentials.email,
             password: credentials.password,
           })
@@ -70,7 +70,7 @@ export const store = new Vuex.Store({
     checkConnection() {
       return new Promise((resolve, reject) => {
         axios
-          .get("Auth/Ping")
+          .get("/health")
           .then((response) => {
             resolve(response);
           })

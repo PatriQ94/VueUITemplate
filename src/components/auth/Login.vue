@@ -26,9 +26,9 @@
       </v-card-text>
       <v-divider></v-divider>
       <v-card-actions>
-        <v-btn color="info" @click="login()">Login</v-btn>
+        <v-btn color="info" @click="loginOrRegister('login')">Login</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success">Register</v-btn>
+        <v-btn color="success" @click="loginOrRegister('register')">Register</v-btn>
       </v-card-actions>
     </v-card>
   </v-container>
@@ -55,15 +55,16 @@ export default {
     };
   },
   methods: {
-    login() {
+    loginOrRegister(route) {
       if (this.valid == false) {
         return;
       }
       this.loading = true;
       this.$store
-        .dispatch("login", {
+        .dispatch("loginOrRegister", {
           email: this.email,
-          password: this.password
+          password: this.password,
+          route: route
         })
         .then(response => {
           this.$router.push({ name: "garage" });
