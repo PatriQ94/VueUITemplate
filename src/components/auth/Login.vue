@@ -9,7 +9,7 @@
           <v-text-field
             label="Email"
             v-model="email"
-            prepend-icon="mdi-account-circle"
+            prepend-icon="mdi-email"
             :rules="[rules.required, rules.email]"
           />
           <v-text-field
@@ -72,7 +72,13 @@ export default {
           return response;
         })
         .catch(error => {
-          this.errorMessages = error;
+          if (
+            error.response.status == 400 &&
+            error.response.data.errorMessage != null
+          ) {
+            this.errorMessages = error.response.data.errorMessage;
+          }
+
           this.loading = false;
         });
     },

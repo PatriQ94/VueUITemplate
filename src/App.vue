@@ -1,12 +1,21 @@
 <template>
   <v-app>
-    <v-app-bar app>
-      <!-- -->
-    </v-app-bar>
+    <v-snackbar
+      v-model="notification"
+      :color="notificationColor"
+      :timeout="timeout"
+      :top="true"
+      :right="true"
+    >
+      {{ notificationText }}
+      <template v-slot:action="{ attrs }">
+        <v-btn text v-bind="attrs" @click="notification = false">Close</v-btn>
+      </template>
+    </v-snackbar>
     <v-app-bar app>
       <v-toolbar-title class="headline">
-        <span>Car</span>
-        <span class="font-weight-light">API</span>
+        <span class="font-weight-light">Car</span>
+        <span>API</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn v-if="!loggedIn" text to="/">
@@ -58,7 +67,11 @@ export default {
   data() {
     return {
       connectionBtnColor: "normal",
-      loadInProgress: false
+      loadInProgress: false,
+      notification: false,
+      notificationColor: "success",
+      notificationText: "",
+      timeout: 3000
     };
   },
   computed: {
@@ -76,18 +89,24 @@ export default {
         .dispatch("checkConnection")
         .then(response => {
           this.connectionBtnColor = "success";
+          this.notificationColor = "success";
+          this.notificationText = "Connected with the back-end API";
+          this.notification = true;
           setTimeout(() => {
             this.loadInProgress = false;
             this.connectionBtnColor = "normal";
-          }, 2000);
+          }, this.timeout);
           return response;
         })
         .catch(error => {
           this.connectionBtnColor = "error";
+          this.notificationColor = "error";
+          this.notificationText = "Not connected with the back-end API";
+          this.notification = true;
           setTimeout(() => {
             this.loadInProgress = false;
             this.connectionBtnColor = "normal";
-          }, 2000);
+          }, this.timeout);
           return error;
         });
     }

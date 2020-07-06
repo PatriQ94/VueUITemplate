@@ -10,6 +10,20 @@ axios.defaults.baseURL = "https://localhost:5001";
 // axios.defaults.headers.common["Authorization"] =
 //   "Bearer " + context.state.accessToken;
 
+// Add a response interceptor
+axios.interceptors.response.use(
+  function(response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    return response;
+  },
+  function(error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+  }
+);
+
 //Initialize store
 export const store = new Vuex.Store({
   state: {
@@ -48,7 +62,6 @@ export const store = new Vuex.Store({
               accessToken: accessToken,
               refreshToken: refreshToken,
             });
-
             resolve(response);
           })
           .catch((error) => {

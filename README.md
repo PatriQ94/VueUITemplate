@@ -29,7 +29,8 @@ npm run build
 
 ### Changelog (major changes)
 
-| Edited   | Comment                                        |
-| -------- | ---------------------------------------------- |
-| 1.7.2020 | Project creation, added storage, added routing |
-| 2.7.2020 | Added Vuetify, added login UI                  |
+| Edited   | Comment                                                         |
+| -------- | --------------------------------------------------------------- |
+| 1.7.2020 | Project creation, added storage, added routing                  |
+| 2.7.2020 | Added Vuetify, added login UI                                   |
+| 6.7.2020 | Finished login and register, added check connection to back-end |
