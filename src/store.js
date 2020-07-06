@@ -7,8 +7,6 @@ Vue.use(Vuex);
 
 //Set default URL for axios
 axios.defaults.baseURL = "https://localhost:5001";
-// axios.defaults.headers.common["Authorization"] =
-//   "Bearer " + context.state.accessToken;
 
 // Add a response interceptor
 axios.interceptors.response.use(
@@ -33,6 +31,9 @@ export const store = new Vuex.Store({
   getters: {
     loggedIn(state) {
       return state.accessToken != null;
+    },
+    getAccessToken(state) {
+      return state.accessToken;
     },
   },
   actions: {
@@ -84,6 +85,21 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         axios
           .get("/health")
+          .then((response) => {
+            resolve(response);
+          })
+          .catch((error) => {
+            reject(error);
+          });
+      });
+    },
+    getCarsByUser(context) {
+      axios.defaults.headers.common["Authorization"] =
+        "Bearer " + context.state.accessToken;
+
+      return new Promise((resolve, reject) => {
+        axios
+          .get("api/Car/GetByUser")
           .then((response) => {
             resolve(response);
           })
