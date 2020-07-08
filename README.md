@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="docsImages/vueLogo.png"></a>
+  <img src="docsImages/vuejs.png"></a>
 </h1>
 
 <h2 align="center">VueJS UI Reference Implementation</h2>
