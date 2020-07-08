@@ -76,4 +76,4 @@ If back-end is accessible, feel free to register a new account and then explore 
 | 1.7.2020 | Project creation, added storage, added routing                                         |
 | 2.7.2020 | Added Vuetify, added login UI                                                          |
 | 6.7.2020 | Finished login and register, added check connection to back-end, progress on Garage UI |
-| 8.7.2020 | Improved docs                                                                          |
+| 8.7.2020 | Improved docs, progress on Add new car popup                                           |

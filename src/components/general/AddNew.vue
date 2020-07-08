@@ -9,24 +9,45 @@
     <v-card>
       <v-card-title>Car information</v-card-title>
       <v-card-text>
-        <v-form class="px-3">
-          <v-select :items="brands" v-model="brand" label="Brand" solo></v-select>
+        <v-form class="px-3" v-model="valid">
+          <v-select
+            :items="brands"
+            v-model="brand"
+            @change="model = ''"
+            label="Brand"
+            solo
+            :rules="[rules.required]"
+          ></v-select>
           <v-select
             :items="models.filter(f => f.brand == brand)"
+            :rules="[rules.required]"
             item-value="model"
             item-text="model"
             v-model="model"
             label="Model"
             solo
           ></v-select>
-          <v-text-field v-model="year" label="Year" solo />
-          <v-text-field v-model="kilometers" label="Kilometers" solo />
+          <v-text-field v-model="year" :rules="[rules.required]" type="number" label="Year" solo />
+          <v-text-field
+            v-model="kilometers"
+            :rules="[rules.required]"
+            type="number"
+            label="Kilometers"
+            solo
+          />
         </v-form>
       </v-card-text>
 
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn class="ma-3" color="info" large @click="saveNewCar" :loading="saving">
+        <v-btn
+          class="ma-3"
+          color="info"
+          :disabled="!valid"
+          large
+          @click="saveNewCar"
+          :loading="saving"
+        >
           <span>Save</span>
           <v-icon right>save</v-icon>
         </v-btn>
@@ -39,6 +60,7 @@
 export default {
   data() {
     return {
+      valid: false,
       saving: false,
       dialog: false,
       brand: "",
@@ -54,11 +76,17 @@ export default {
         { brand: "Škoda", model: "Superb" },
         { brand: "BMW", model: "M3" },
         { brand: "BMW", model: "M5" }
-      ]
+      ],
+      rules: {
+        required: value => !!value || "Required."
+      }
     };
   },
   methods: {
     saveNewCar() {
+      if (this.valid == false) {
+        return;
+      }
       this.saving = true;
       setTimeout(() => {
         this.saving = false;

@@ -6,7 +6,7 @@
         <v-card class="text-center ma-3" :elevation="10">
           <v-responsive class="pt-4">
             <v-avatar size="100" class="grey lighten-2">
-              <img :src="car.avatar" />
+              <img :src="avatarPath(car.brand)" />
             </v-avatar>
           </v-responsive>
           <v-card-text>
@@ -30,6 +30,7 @@
 
 <script>
 import AddNew from "./AddNew";
+import garageHelper from "@/helpers/garageHelper.js";
 
 export default {
   components: {
@@ -37,56 +38,7 @@ export default {
   },
   data() {
     return {
-      cars: [
-        {
-          id: 8,
-          brand: "Škoda",
-          model: "Superb",
-          year: 2005,
-          kilometers: 2000,
-          avatar: "skoda.png"
-        },
-        {
-          id: 9,
-          brand: "Volkswagen",
-          model: "Amarok",
-          year: 2020,
-          kilometers: 50000,
-          avatar: "volkswagen.png"
-        },
-        {
-          id: 10,
-          brand: "Škoda",
-          model: "Octavia",
-          year: 2015,
-          kilometers: 500000,
-          avatar: "skoda.png"
-        },
-        {
-          id: 11,
-          brand: "BMW",
-          model: "M3",
-          year: 2013,
-          kilometers: 310,
-          avatar: "bmw.png"
-        },
-        {
-          id: 12,
-          brand: "Volkswagen",
-          model: "Golf",
-          year: 2013,
-          kilometers: 3100,
-          avatar: "volkswagen.png"
-        },
-        {
-          id: 13,
-          brand: "Volkswagen",
-          model: "Polo",
-          year: 2013,
-          kilometers: 7000,
-          avatar: "volkswagen.png"
-        }
-      ]
+      cars: garageHelper.getDummyData()
     };
   },
   methods: {
@@ -100,12 +52,17 @@ export default {
           return error;
         });
     },
-    updateKilometers() {
-      this.notificationColor = "success";
-      this.notificationText = "Connected with the back-end API";
-      this.notification = true;
-    },
-    removeCar() {}
+    updateKilometers() {},
+    removeCar() {},
+    avatarPath(brand) {
+      if (brand == "Škoda") {
+        return "skoda.png";
+      } else if (brand == "Volkswagen") {
+        return "volkswagen.png";
+      } else if (brand == "BMW") {
+        return "bmw.png";
+      }
+    }
   },
   created() {
     //this.getCarsByUser();
