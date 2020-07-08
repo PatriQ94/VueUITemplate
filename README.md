@@ -1,5 +1,4 @@
 <h1 align="center">
-  <br>
   <img src="docsImages/vueJs.png"></a>
 </h1>
 
