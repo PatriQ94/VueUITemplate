@@ -43,14 +43,18 @@ export default {
   },
   methods: {
     getCarsByUser() {
-      this.$store
-        .dispatch("getCarsByUser")
-        .then(response => {
-          this.cars = response.data.value;
-        })
-        .catch(error => {
-          return error;
-        });
+      // axios.defaults.headers.common["Authorization"] =
+      //   "Bearer " + context.state.accessToken;
+      // return new Promise((resolve, reject) => {
+      //   axios
+      //     .get("api/Car/GetByUser")
+      //     .then(response => {
+      //       resolve(response);
+      //     })
+      //     .catch(error => {
+      //       reject(error);
+      //     });
+      // });
     },
     updateKilometers() {},
     removeCar() {},

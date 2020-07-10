@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import api from "@/api";
+
 export default {
   name: "login",
   data() {
@@ -60,16 +62,29 @@ export default {
         return;
       }
       this.loading = true;
-      this.$store
-        .dispatch("loginOrRegister", {
+      api
+        .post("/api/Auth/" + route, {
           email: this.email,
-          password: this.password,
-          route: route
+          password: this.password
         })
         .then(response => {
-          this.$router.push({ name: "garage" });
-          this.loading = false;
-          return response;
+          //Get access and refresh token from the response
+          const accessToken = response.data.value.accessToken;
+          const refreshToken = response.data.value.refreshToken;
+
+          this.$store
+            .dispatch("loginOrRegister", {
+              accessToken: accessToken,
+              refreshToken: refreshToken
+            })
+            .then(response => {
+              this.$router.push({ name: "garage" });
+              this.loading = false;
+              return response;
+            })
+            .catch(error => {
+              return error;
+            });
         })
         .catch(error => {
           if (

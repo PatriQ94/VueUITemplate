@@ -54,6 +54,8 @@
 </template>
 
 <script>
+import api from "@/api";
+
 export default {
   name: "App",
   watch: {
@@ -85,8 +87,8 @@ export default {
         return;
       }
       this.loadInProgress = true;
-      this.$store
-        .dispatch("checkConnection")
+      api
+        .get("/health")
         .then(response => {
           this.connectionBtnColor = "success";
           this.notificationColor = "success";

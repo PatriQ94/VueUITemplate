@@ -7,13 +7,13 @@ import vuetify from "./plugins/vuetify";
 import "material-design-icons-iconfont/dist/material-design-icons.css";
 
 Vue.config.productionTip = false;
-Vue.use(VueRouter);
 
+//Set up VueRouter
+Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
   mode: "history",
 });
-
 router.beforeEach((to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
