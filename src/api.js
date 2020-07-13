@@ -23,12 +23,6 @@ api.interceptors.response.use(
     return response;
   },
   function(error) {
-    // Return any error which is not due to authentication
-    if (error.response.status !== 401) {
-      return new Promise((resolve, reject) => {
-        reject(error);
-      });
-    }
     // Logout user if token refresh didn't work
     if (error.config.url == "/api/Auth/RefreshToken") {
       store.dispatch("logout").then(() => {
@@ -36,6 +30,13 @@ api.interceptors.response.use(
         return new Promise((resolve, reject) => {
           reject(error);
         });
+      });
+    }
+
+    // Return any error which is not due to authentication
+    if (error.response.status !== 401) {
+      return new Promise((resolve, reject) => {
+        reject(error);
       });
     }
 
