@@ -42,8 +42,8 @@
         <router-view></router-view>
       </v-container>
     </v-main>
-    <v-footer absolute class="font-weight-medium">
-      <v-col class="text-center" cols="12">
+    <v-footer absolute class="font-weight-medium" app>
+      <v-col heigth="200" class="text-center" cols="12">
         <v-btn v-bind:color="connectionBtnColor" @click="checkConnection()">
           <span>Check connection with back-end</span>
           <v-icon right>bluetooth</v-icon>

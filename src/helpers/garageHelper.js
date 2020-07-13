@@ -43,6 +43,34 @@ let garageHelper = {
         year: 2013,
         kilometers: 7000,
       },
+      {
+        id: 14,
+        brand: "Volkswagen",
+        model: "Polo",
+        year: 2013,
+        kilometers: 7000,
+      },
+      {
+        id: 15,
+        brand: "Volkswagen",
+        model: "Polo",
+        year: 2013,
+        kilometers: 7000,
+      },
+      {
+        id: 16,
+        brand: "Volkswagen",
+        model: "Polo",
+        year: 2013,
+        kilometers: 7000,
+      },
+      {
+        id: 17,
+        brand: "Volkswagen",
+        model: "Polo",
+        year: 2013,
+        kilometers: 7000,
+      },
     ];
   },
 };

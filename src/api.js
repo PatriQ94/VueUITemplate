@@ -40,10 +40,48 @@ api.interceptors.response.use(
       });
     }
 
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    console.log("This is some axios interceptor 2 for error");
-    return Promise.reject(error);
+    return api
+      .post("/api/Auth/RefreshToken", {
+        accessToken: store.getters.getAccessToken,
+        refreshToken: store.getters.getRefreshToken,
+      })
+      .then((response) => {
+        //Get access and refresh token from the response
+        const accessToken = response.data.value.accessToken;
+        const refreshToken = response.data.value.refreshToken;
+
+        //Override existing tokens
+        store
+          .dispatch("loginOrRegister", {
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+          })
+          .then(() => {
+            // Make a new request with refreshed tokens
+            const config = error.config;
+            return new Promise((resolve, reject) => {
+              api
+                .request(config)
+                .then((response) => {
+                  resolve(response);
+                })
+                .catch((error) => {
+                  reject(error);
+                });
+            });
+          })
+          .catch((error) => {
+            store.dispatch("logout").then(() => {
+              router.push({ name: "login" });
+              return new Promise((resolve, reject) => {
+                reject(error);
+              });
+            });
+          });
+      })
+      .catch((error) => {
+        Promise.reject(error);
+      });
   }
 );
 

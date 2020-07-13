@@ -17,6 +17,9 @@ export const store = new Vuex.Store({
     getAccessToken(state) {
       return state.accessToken;
     },
+    getRefreshToken(state) {
+      return state.refreshToken;
+    },
   },
   actions: {
     loginOrRegister(context, credentials) {

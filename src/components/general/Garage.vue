@@ -30,7 +30,7 @@
 
 <script>
 import AddNew from "./AddNew";
-import garageHelper from "@/helpers/garageHelper.js";
+import api from "@/api";
 
 export default {
   components: {
@@ -38,23 +38,19 @@ export default {
   },
   data() {
     return {
-      cars: garageHelper.getDummyData()
+      cars: []
     };
   },
   methods: {
     getCarsByUser() {
-      // axios.defaults.headers.common["Authorization"] =
-      //   "Bearer " + context.state.accessToken;
-      // return new Promise((resolve, reject) => {
-      //   axios
-      //     .get("api/Car/GetByUser")
-      //     .then(response => {
-      //       resolve(response);
-      //     })
-      //     .catch(error => {
-      //       reject(error);
-      //     });
-      // });
+      api
+        .get("/api/Car/GetByUser")
+        .then(response => {
+          this.cars = response.data.value;
+        })
+        .catch(error => {
+          console.log("An error occured on getCarsByUser:" + error);
+        });
     },
     updateKilometers() {},
     removeCar() {},
@@ -69,7 +65,7 @@ export default {
     }
   },
   created() {
-    //this.getCarsByUser();
+    this.getCarsByUser();
   }
 };
 </script>
