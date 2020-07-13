@@ -48,9 +48,7 @@ export default {
         .then(response => {
           this.cars = response.data.value;
         })
-        .catch(error => {
-          console.log("An error occured on getCarsByUser:" + error);
-        });
+        .catch(() => {});
     },
     updateKilometers() {},
     removeCar() {},

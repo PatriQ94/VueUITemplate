@@ -29,7 +29,6 @@ api.interceptors.response.use(
         reject(error);
       });
     }
-
     // Logout user if token refresh didn't work
     if (error.config.url == "/api/Auth/RefreshToken") {
       store.dispatch("logout").then(() => {
@@ -40,49 +39,58 @@ api.interceptors.response.use(
       });
     }
 
-    return api
-      .post("/api/Auth/RefreshToken", {
-        accessToken: store.getters.getAccessToken,
-        refreshToken: store.getters.getRefreshToken,
-      })
-      .then((response) => {
-        //Get access and refresh token from the response
-        const accessToken = response.data.value.accessToken;
-        const refreshToken = response.data.value.refreshToken;
-
-        //Override existing tokens
-        store
-          .dispatch("loginOrRegister", {
-            accessToken: accessToken,
-            refreshToken: refreshToken,
-          })
-          .then(() => {
-            // Make a new request with refreshed tokens
-            const config = error.config;
-            return new Promise((resolve, reject) => {
-              api
-                .request(config)
-                .then((response) => {
-                  resolve(response);
-                })
-                .catch((error) => {
-                  reject(error);
-                });
+    //Get new tokens
+    return getNewTokens()
+      .then(() => {
+        //Retry the request
+        const config = error.config;
+        return new Promise((resolve, reject) => {
+          api
+            .request(config)
+            .then((response) => {
+              resolve(response);
+            })
+            .catch((error) => {
+              reject(error);
             });
-          })
-          .catch((error) => {
-            store.dispatch("logout").then(() => {
-              router.push({ name: "login" });
-              return new Promise((resolve, reject) => {
-                reject(error);
-              });
-            });
-          });
+        });
       })
       .catch((error) => {
         Promise.reject(error);
       });
   }
 );
+
+function getNewTokens() {
+  var oldToken = store.getters.getRefreshToken;
+  //Exchange old tokens for new one
+  return new Promise((resolve, reject) => {
+    api
+      .post("/api/Auth/RefreshToken", {
+        accessToken: store.getters.getAccessToken,
+        refreshToken: store.getters.getRefreshToken,
+      })
+      .then((response) => {
+        //Store newly generated tokens
+        console.log(
+          "Refreshing old token: " +
+            oldToken +
+            ", for new one: " +
+            response.data.value.refreshToken
+        );
+        store
+          .dispatch("loginOrRegister", {
+            accessToken: response.data.value.accessToken,
+            refreshToken: response.data.value.refreshToken,
+          })
+          .then((response) => {
+            resolve(response);
+          });
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+}
 
 export default api;

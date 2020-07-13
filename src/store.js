@@ -32,7 +32,7 @@ export const store = new Vuex.Store({
           accessToken: credentials.accessToken,
           refreshToken: credentials.refreshToken,
         });
-        resolve();
+        resolve(credentials.accessToken);
       });
     },
     logout(context) {
@@ -41,7 +41,7 @@ export const store = new Vuex.Store({
           localStorage.removeItem("access_Token");
           localStorage.removeItem("refresh_Token");
           context.commit("logout");
-          resolve();
+          resolve(true);
         });
       }
     },
