@@ -1,15 +1,17 @@
 <template>
   <v-app>
     <v-snackbar
-      v-model="notification"
-      :color="notificationColor"
+      v-model="notification.show"
+      :color="notification.color"
       :timeout="timeout"
       :top="true"
       :right="true"
     >
-      {{ notificationText }}
+      {{ notification.text }}
       <template v-slot:action="{ attrs }">
-        <v-btn text v-bind="attrs" @click="notification = false">Close</v-btn>
+        <v-btn text v-bind="attrs" @click="notification.show = false"
+          >Close</v-btn
+        >
       </template>
     </v-snackbar>
     <v-app-bar app>
@@ -42,7 +44,7 @@
         <router-view></router-view>
       </v-container>
     </v-main>
-    <v-footer absolute class="font-weight-medium" app>
+    <v-footer :elevation="24" absolute class="font-weight-medium" app>
       <v-col heigth="200" class="text-center" cols="12">
         <v-btn v-bind:color="connectionBtnColor" @click="checkConnection()">
           <span>Check connection with back-end</span>
@@ -55,6 +57,7 @@
 
 <script>
 import api from "@/api";
+import { mapState } from "vuex";
 
 export default {
   name: "App",
@@ -63,23 +66,21 @@ export default {
       immediate: true,
       handler(to) {
         document.title = to.meta.title || "CarAPI";
-      }
-    }
+      },
+    },
   },
   data() {
     return {
       connectionBtnColor: "normal",
       loadInProgress: false,
-      notification: false,
-      notificationColor: "success",
-      notificationText: "",
-      timeout: 3000
+      timeout: 3000,
     };
   },
   computed: {
+    ...mapState(["notification"]),
     loggedIn() {
       return this.$store.getters.loggedIn;
-    }
+    },
   },
   methods: {
     checkConnection() {
@@ -89,29 +90,34 @@ export default {
       this.loadInProgress = true;
       api
         .get("/health")
-        .then(response => {
+        .then((response) => {
           this.connectionBtnColor = "success";
-          this.notificationColor = "success";
-          this.notificationText = "Connected with the back-end API";
-          this.notification = true;
+          this.$store.dispatch("raiseNotification", {
+            show: true,
+            color: "success",
+            text: "Connected with the back-end API",
+          });
+
           setTimeout(() => {
             this.loadInProgress = false;
             this.connectionBtnColor = "normal";
           }, this.timeout);
           return response;
         })
-        .catch(error => {
+        .catch((error) => {
+          this.$store.dispatch("raiseNotification", {
+            show: true,
+            color: "error",
+            text: "Not connected with the back-end API",
+          });
           this.connectionBtnColor = "error";
-          this.notificationColor = "error";
-          this.notificationText = "Not connected with the back-end API";
-          this.notification = true;
           setTimeout(() => {
             this.loadInProgress = false;
             this.connectionBtnColor = "normal";
           }, this.timeout);
           return error;
         });
-    }
-  }
+    },
+  },
 };
 </script>

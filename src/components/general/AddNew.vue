@@ -9,7 +9,7 @@
     <v-card>
       <v-card-title>Car information</v-card-title>
       <v-card-text>
-        <v-form class="px-3" v-model="valid">
+        <v-form ref="form" class="px-3" v-model="valid">
           <v-select
             :items="brands"
             v-model="brand"
@@ -19,7 +19,7 @@
             :rules="[rules.required]"
           ></v-select>
           <v-select
-            :items="models.filter(f => f.brand == brand)"
+            :items="models.filter((f) => f.brand == brand)"
             :rules="[rules.required]"
             item-value="model"
             item-text="model"
@@ -27,7 +27,13 @@
             label="Model"
             solo
           ></v-select>
-          <v-text-field v-model="year" :rules="[rules.required]" type="number" label="Year" solo />
+          <v-text-field
+            v-model="year"
+            :rules="[rules.required]"
+            type="number"
+            label="Year"
+            solo
+          />
           <v-text-field
             v-model="kilometers"
             :rules="[rules.required]"
@@ -57,6 +63,8 @@
 </template>
 
 <script>
+import api from "@/api";
+
 export default {
   data() {
     return {
@@ -75,11 +83,11 @@ export default {
         { brand: "Škoda", model: "Octavia" },
         { brand: "Škoda", model: "Superb" },
         { brand: "BMW", model: "M3" },
-        { brand: "BMW", model: "M5" }
+        { brand: "BMW", model: "M5" },
       ],
       rules: {
-        required: value => !!value || "Required."
-      }
+        required: (value) => !!value || "Required.",
+      },
     };
   },
   methods: {
@@ -88,14 +96,47 @@ export default {
         return;
       }
       this.saving = true;
-      setTimeout(() => {
-        this.saving = false;
-        this.dialog = false;
-      }, 2000);
-    }
-  }
+
+      api
+        .post("/api/Car/Insert", {
+          brand: this.brand,
+          model: this.model,
+          year: parseInt(this.year),
+          kilometers: parseInt(this.kilometers),
+        })
+        .then(() => {
+          this.$store.dispatch("raiseNotification", {
+            show: true,
+            color: "success",
+            text: "Successfuly inserted new car",
+          });
+          this.saving = false;
+          this.dialog = false;
+          this.$refs.form.reset();
+          this.$emit("getCarsByUser");
+        })
+        .catch((error) => {
+          var errorMessage = null;
+          if (
+            error.response.data != null &&
+            error.response.data.errorMessage != null
+          ) {
+            errorMessage = error.response.data.errorMessage;
+          }
+          if (errorMessage == null) {
+            errorMessage = error.response.data;
+          }
+
+          this.$store.dispatch("raiseNotification", {
+            show: true,
+            color: "error",
+            text: errorMessage,
+          });
+          this.saving = false;
+        });
+    },
+  },
 };
 </script>
 
-<style>
-</style>
+<style></style>

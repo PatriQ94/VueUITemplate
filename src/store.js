@@ -9,6 +9,11 @@ export const store = new Vuex.Store({
   state: {
     accessToken: localStorage.getItem("access_Token"),
     refreshToken: localStorage.getItem("refresh_Token"),
+    notification:{
+      show: false,
+      color: "success",
+      text : ""
+    }
   },
   getters: {
     loggedIn(state) {
@@ -45,6 +50,9 @@ export const store = new Vuex.Store({
         });
       }
     },
+    raiseNotification(context, notificationInfo){
+      context.commit("raiseNotification", notificationInfo);
+    }
   },
   mutations: {
     login(state, tokens) {
@@ -55,5 +63,8 @@ export const store = new Vuex.Store({
       state.accessToken = null;
       state.refreshToken = null;
     },
+    raiseNotification(state, notificationInfo){
+      state.notification = notificationInfo
+    }
   },
 });
