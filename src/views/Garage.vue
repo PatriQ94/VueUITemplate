@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import AddNew from "./AddNew";
+import AddNew from "@/components/AddNew.vue";
 import api from "@/api";
 
 export default {

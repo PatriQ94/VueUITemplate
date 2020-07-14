@@ -1,8 +1,8 @@
-import LandingPage from "./components/general/LandingPage.vue";
-import About from "./components/general/About.vue";
-import Garage from "./components/general/Garage.vue";
-import Login from "./components/auth/Login.vue";
-import Logout from "./components/auth/Logout.vue";
+import LandingPage from "./views/LandingPage.vue";
+import About from "./views/About.vue";
+import Garage from "./views/Garage.vue";
+import Login from "./views/Login.vue";
+import Logout from "./components/Logout.vue";
 
 const routes = [
   {
