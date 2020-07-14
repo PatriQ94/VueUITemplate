@@ -14,7 +14,7 @@
 
 ## About
 
-A front-end SPA application built with VueJS. It implements [JWT authentication](https://jwt.io/), [Vuex](https://vuex.vuejs.org/guide/) for storage, [VueRouter](https://router.vuejs.org/) for routing and [Vuetify](https://vuetifyjs.com/en/) for UI.
+A front-end SPA application built with [VueJS](https://vuejs.org/). It implements [JWT authentication](https://jwt.io/), [Vuex](https://vuex.vuejs.org/guide/) for storage, [VueRouter](https://router.vuejs.org/) for routing and [Vuetify](https://vuetifyjs.com/en/) for UI.
 
 As of now it goes hand in hand with my other projects such as
 [Car API](https://github.com/PatriQ94/CarAPITemplate), which serve as the back-end for authentication and data retrieval. In order to fully see the front-end and the back-end working together you **need to run both projects at the same time.**
