@@ -28,7 +28,9 @@
       <v-card-actions>
         <v-btn color="info" @click="loginOrRegister('login')">Login</v-btn>
         <v-spacer></v-spacer>
-        <v-btn color="success" @click="loginOrRegister('register')">Register</v-btn>
+        <v-btn color="success" @click="loginOrRegister('register')"
+          >Register</v-btn
+        >
       </v-card-actions>
     </v-card>
   </v-container>

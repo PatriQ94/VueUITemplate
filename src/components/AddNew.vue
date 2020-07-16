@@ -19,7 +19,7 @@
             :rules="[rules.required]"
           ></v-select>
           <v-select
-            :items="models.filter((f) => f.brand == brand)"
+            :items="models.filter(f => f.brand == brand)"
             :rules="[rules.required]"
             item-value="model"
             item-text="model"
@@ -83,11 +83,11 @@ export default {
         { brand: "Škoda", model: "Octavia" },
         { brand: "Škoda", model: "Superb" },
         { brand: "BMW", model: "M3" },
-        { brand: "BMW", model: "M5" },
+        { brand: "BMW", model: "M5" }
       ],
       rules: {
-        required: (value) => !!value || "Required.",
-      },
+        required: value => !!value || "Required."
+      }
     };
   },
   methods: {
@@ -102,20 +102,20 @@ export default {
           brand: this.brand,
           model: this.model,
           year: parseInt(this.year),
-          kilometers: parseInt(this.kilometers),
+          kilometers: parseInt(this.kilometers)
         })
         .then(() => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "success",
-            text: "Successfuly inserted new car",
+            text: "Successfuly inserted new car"
           });
           this.saving = false;
           this.dialog = false;
           this.$refs.form.reset();
           this.$emit("getCarsByUser");
         })
-        .catch((error) => {
+        .catch(error => {
           var errorMessage = null;
           if (
             error.response.data != null &&
@@ -130,12 +130,12 @@ export default {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: errorMessage,
+            text: errorMessage
           });
           this.saving = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

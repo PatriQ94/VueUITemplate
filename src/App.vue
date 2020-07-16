@@ -66,21 +66,21 @@ export default {
       immediate: true,
       handler(to) {
         document.title = to.meta.title || "CarAPI";
-      },
-    },
+      }
+    }
   },
   data() {
     return {
       connectionBtnColor: "normal",
       loadInProgress: false,
-      timeout: 3000,
+      timeout: 3000
     };
   },
   computed: {
     ...mapState(["notification"]),
     loggedIn() {
       return this.$store.getters.loggedIn;
-    },
+    }
   },
   methods: {
     checkConnection() {
@@ -90,12 +90,12 @@ export default {
       this.loadInProgress = true;
       api
         .get("/health")
-        .then((response) => {
+        .then(response => {
           this.connectionBtnColor = "success";
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "success",
-            text: "Connected with the back-end API",
+            text: "Connected with the back-end API"
           });
 
           setTimeout(() => {
@@ -104,11 +104,11 @@ export default {
           }, this.timeout);
           return response;
         })
-        .catch((error) => {
+        .catch(error => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: "Not connected with the back-end API",
+            text: "Not connected with the back-end API"
           });
           this.connectionBtnColor = "error";
           setTimeout(() => {
@@ -117,7 +117,7 @@ export default {
           }, this.timeout);
           return error;
         });
-    },
-  },
+    }
+  }
 };
 </script>

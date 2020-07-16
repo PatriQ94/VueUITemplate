@@ -34,25 +34,25 @@ import api from "@/api";
 
 export default {
   components: {
-    AddNew,
+    AddNew
   },
   data() {
     return {
-      cars: [],
+      cars: []
     };
   },
   methods: {
     getCarsByUser() {
       api
         .get("/api/Car/GetByUser")
-        .then((response) => {
+        .then(response => {
           this.cars = response.data.value;
         })
         .catch(() => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: "An error occured",
+            text: "An error occured"
           });
         });
     },
@@ -60,17 +60,17 @@ export default {
     removeCar(carId) {
       api
         .post("/api/Car/Remove", {
-          CarID: carId,
+          CarID: carId
         })
         .then(() => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "success",
-            text: "Successfuly removed car",
+            text: "Successfuly removed car"
           });
           this.getCarsByUser();
         })
-        .catch((error) => {
+        .catch(error => {
           var errorMessage = null;
           if (
             error.response.data != null &&
@@ -85,7 +85,7 @@ export default {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: errorMessage,
+            text: errorMessage
           });
         });
     },
@@ -97,11 +97,11 @@ export default {
       } else if (brand == "BMW") {
         return "bmw.png";
       }
-    },
+    }
   },
   created() {
     this.getCarsByUser();
-  },
+  }
 };
 </script>
 
