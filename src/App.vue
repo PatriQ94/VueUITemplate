@@ -41,15 +41,33 @@
     <!-- Main content with vue-router-->
     <v-main>
       <v-container fluid>
-        <router-view></router-view>
+        <transition name="fade" mode="out-in">
+          <router-view></router-view>
+        </transition>
       </v-container>
     </v-main>
-    <v-footer :elevation="24" absolute class="font-weight-medium" app>
+    <v-footer
+      color="blue-grey lighten-4"
+      :elevation="24"
+      absolute
+      class="font-weight-medium"
+      app
+    >
       <v-col heigth="200" class="text-center" cols="12">
-        <v-btn v-bind:color="connectionBtnColor" @click="checkConnection()">
-          <span>Check connection with back-end</span>
-          <v-icon right>bluetooth</v-icon>
-        </v-btn>
+        <v-tooltip top>
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind:color="connectionBtnColor"
+              @click="checkConnection()"
+              v-bind="attrs"
+              v-on="on"
+            >
+              <span>Test connection</span>
+              <v-icon right>bluetooth</v-icon>
+            </v-btn>
+          </template>
+          <span>Check connection with the back-end server</span>
+        </v-tooltip>
       </v-col>
     </v-footer>
   </v-app>
@@ -121,3 +139,29 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+// .fade-enter-active,
+// .fade-leave-active {
+//   transition: opacity 0.2s;
+// }
+// .fade-enter,
+// .fade-leave-to {
+//   opacity: 0;
+// }
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: transform 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(-100%);
+}
+
+.fade-enter-to,
+.fade-leave {
+  transform: translateX(0);
+}
+</style>

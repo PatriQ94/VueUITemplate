@@ -14,13 +14,21 @@
             <div class="grey--text">{{ car.model }}</div>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="updateKilometers">
-              <span>Update kilometers</span>
-            </v-btn>
+            <UpdateKilometers :kilometers="car.kilometers"></UpdateKilometers>
             <v-spacer></v-spacer>
-            <v-btn color="error" @click="removeCar(car.id)">
-              <span>Remove</span>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="error"
+                  @click="removeCar(car.id)"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <span>Remove</span>
+                </v-btn>
+              </template>
+              <span>Remove this car</span>
+            </v-tooltip>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -30,11 +38,13 @@
 
 <script>
 import AddNew from "@/components/AddNew.vue";
+import UpdateKilometers from "@/components/UpdateKilometers.vue";
 import api from "@/api";
 
 export default {
   components: {
-    AddNew
+    AddNew,
+    UpdateKilometers
   },
   data() {
     return {
@@ -56,7 +66,9 @@ export default {
           });
         });
     },
-    updateKilometers() {},
+    updateKilometers() {
+      this.updateKmPopup = true;
+    },
     removeCar(carId) {
       api
         .post("/api/Car/Remove", {

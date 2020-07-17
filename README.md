@@ -81,3 +81,4 @@ If the back-end is accessible, feel free to register a new account and then expl
 | 8.7.2020  | Improved docs, progress on Add new car popup                                           |
 | 13.7.2020 | Implemented automatic JWT token refreshing                                             |
 | 14.7.2020 | Completed "Add new car" and "Remove car" features                                      |
+| 17.7.2020 | Added transitions between pages and started working on popup for updating car km       |
