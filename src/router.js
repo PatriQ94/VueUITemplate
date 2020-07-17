@@ -9,25 +9,25 @@ Vue.config.productionTip = false;
 Vue.use(VueRouter);
 const router = new VueRouter({
   routes,
-  mode: "history",
+  mode: "history"
 });
 router.beforeEach((to, from, next) => {
-  if (to.matched.some((record) => record.meta.requiresAuth)) {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
     // this route requires auth, check if logged in
     // if not, redirect to login page.
     if (!store.getters.loggedIn) {
       //Redirect to login route
       next({
-        name: "login",
+        name: "login"
       });
     } else {
       next();
     }
-  } else if (to.matched.some((record) => record.meta.requiresVisitor)) {
+  } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (store.getters.loggedIn) {
       //Redirect to garage route
       next({
-        name: "garage",
+        name: "garage"
       });
     } else {
       next();

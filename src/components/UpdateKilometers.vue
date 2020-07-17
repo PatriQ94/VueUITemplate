@@ -13,6 +13,7 @@
 
 <script>
 import api from "@/api";
+import carService from "@/services/CarService";
 
 export default {
   props: { kilometers: Number },
@@ -21,7 +22,9 @@ export default {
       updateKmPopup: false
     };
   },
-  methods: {}
+  created() {
+    carService.UpdateKilometers();
+  }
 };
 </script>
 

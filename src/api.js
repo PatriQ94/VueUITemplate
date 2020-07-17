@@ -3,7 +3,7 @@ import { store } from "./store";
 import router from "./router";
 
 let api = axios.create({
-  baseURL: "https://localhost:5001",
+  baseURL: "https://localhost:5001"
 });
 
 // Add a request interceptor
@@ -48,15 +48,15 @@ api.interceptors.response.use(
         return new Promise((resolve, reject) => {
           api
             .request(config)
-            .then((response) => {
+            .then(response => {
               resolve(response);
             })
-            .catch((error) => {
+            .catch(error => {
               reject(error);
             });
         });
       })
-      .catch((error) => {
+      .catch(error => {
         Promise.reject(error);
       });
   }
@@ -69,9 +69,9 @@ function getNewTokens() {
     api
       .post("/api/Auth/RefreshToken", {
         accessToken: store.getters.getAccessToken,
-        refreshToken: store.getters.getRefreshToken,
+        refreshToken: store.getters.getRefreshToken
       })
-      .then((response) => {
+      .then(response => {
         //Store newly generated tokens
         console.log(
           "Refreshing old token: " +
@@ -82,13 +82,13 @@ function getNewTokens() {
         store
           .dispatch("loginOrRegister", {
             accessToken: response.data.value.accessToken,
-            refreshToken: response.data.value.refreshToken,
+            refreshToken: response.data.value.refreshToken
           })
-          .then((response) => {
+          .then(response => {
             resolve(response);
           });
       })
-      .catch((error) => {
+      .catch(error => {
         reject(error);
       });
   });

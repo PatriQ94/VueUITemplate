@@ -9,10 +9,10 @@ export const store = new Vuex.Store({
   state: {
     accessToken: localStorage.getItem("access_Token"),
     refreshToken: localStorage.getItem("refresh_Token"),
-    notification:{
+    notification: {
       show: false,
       color: "success",
-      text : ""
+      text: ""
     }
   },
   getters: {
@@ -24,25 +24,25 @@ export const store = new Vuex.Store({
     },
     getRefreshToken(state) {
       return state.refreshToken;
-    },
+    }
   },
   actions: {
     loginOrRegister(context, credentials) {
-      return new Promise((resolve) => {
+      return new Promise(resolve => {
         localStorage.setItem("access_Token", credentials.accessToken);
         localStorage.setItem("refresh_Token", credentials.refreshToken);
 
         //save to storage via mutation
         context.commit("login", {
           accessToken: credentials.accessToken,
-          refreshToken: credentials.refreshToken,
+          refreshToken: credentials.refreshToken
         });
         resolve(credentials.accessToken);
       });
     },
     logout(context) {
       if (context.getters.loggedIn) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           localStorage.removeItem("access_Token");
           localStorage.removeItem("refresh_Token");
           context.commit("logout");
@@ -50,7 +50,7 @@ export const store = new Vuex.Store({
         });
       }
     },
-    raiseNotification(context, notificationInfo){
+    raiseNotification(context, notificationInfo) {
       context.commit("raiseNotification", notificationInfo);
     }
   },
@@ -63,8 +63,8 @@ export const store = new Vuex.Store({
       state.accessToken = null;
       state.refreshToken = null;
     },
-    raiseNotification(state, notificationInfo){
-      state.notification = notificationInfo
+    raiseNotification(state, notificationInfo) {
+      state.notification = notificationInfo;
     }
-  },
+  }
 });
