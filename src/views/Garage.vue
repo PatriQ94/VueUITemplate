@@ -14,13 +14,21 @@
             <div class="grey--text">{{ car.model }}</div>
           </v-card-text>
           <v-card-actions>
-            <v-btn @click="updateKilometers">
-              <span>Update kilometers</span>
-            </v-btn>
+            <UpdateKilometers :kilometers="car.kilometers"></UpdateKilometers>
             <v-spacer></v-spacer>
-            <v-btn color="error" @click="removeCar(car.id)">
-              <span>Remove</span>
-            </v-btn>
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="error"
+                  @click="removeCar(car.id)"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  <span>Remove</span>
+                </v-btn>
+              </template>
+              <span>Remove this car</span>
+            </v-tooltip>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -30,47 +38,51 @@
 
 <script>
 import AddNew from "@/components/AddNew.vue";
+import UpdateKilometers from "@/components/UpdateKilometers.vue";
 import api from "@/api";
 
 export default {
   components: {
     AddNew,
+    UpdateKilometers
   },
   data() {
     return {
-      cars: [],
+      cars: []
     };
   },
   methods: {
     getCarsByUser() {
       api
         .get("/api/Car/GetByUser")
-        .then((response) => {
+        .then(response => {
           this.cars = response.data.value;
         })
         .catch(() => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: "An error occured",
+            text: "An error occured"
           });
         });
     },
-    updateKilometers() {},
+    updateKilometers() {
+      this.updateKmPopup = true;
+    },
     removeCar(carId) {
       api
         .post("/api/Car/Remove", {
-          CarID: carId,
+          CarID: carId
         })
         .then(() => {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "success",
-            text: "Successfuly removed car",
+            text: "Successfuly removed car"
           });
           this.getCarsByUser();
         })
-        .catch((error) => {
+        .catch(error => {
           var errorMessage = null;
           if (
             error.response.data != null &&
@@ -85,7 +97,7 @@ export default {
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
-            text: errorMessage,
+            text: errorMessage
           });
         });
     },
@@ -97,11 +109,11 @@ export default {
       } else if (brand == "BMW") {
         return "bmw.png";
       }
-    },
+    }
   },
   created() {
     this.getCarsByUser();
-  },
+  }
 };
 </script>
 

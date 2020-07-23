@@ -11,8 +11,8 @@ const routes = [
     component: LandingPage,
     meta: {
       requiresVisitor: true,
-      title: "Home",
-    },
+      title: "Home"
+    }
   },
   {
     path: "/garage",
@@ -20,8 +20,8 @@ const routes = [
     component: Garage,
     meta: {
       requiresAuth: true,
-      title: "Garage",
-    },
+      title: "Garage"
+    }
   },
   {
     path: "/About",
@@ -29,8 +29,8 @@ const routes = [
     component: About,
     meta: {
       requiresAuth: true,
-      title: "About",
-    },
+      title: "About"
+    }
   },
   {
     path: "/Login",
@@ -38,14 +38,14 @@ const routes = [
     component: Login,
     meta: {
       requiresVisitor: true,
-      title: "Login",
-    },
+      title: "Login"
+    }
   },
   {
     path: "/Logout",
     name: "logout",
-    component: Logout,
-  },
+    component: Logout
+  }
 ];
 
 export default routes;

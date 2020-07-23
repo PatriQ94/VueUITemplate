@@ -18,7 +18,7 @@
 A front-end SPA application built with [VueJS](https://vuejs.org/). It implements [JWT authentication](https://jwt.io/), [Vuex](https://vuex.vuejs.org/guide/) for storage, [VueRouter](https://router.vuejs.org/) for routing and [Vuetify](https://vuetifyjs.com/en/) for UI.
 
 As of now it goes hand in hand with my other projects such as
-[Car API](https://github.com/PatriQ94/CarAPITemplate), which serve as the back-end for authentication and data retrieval. In order to fully see the front-end and the back-end working together you **need to run both projects at the same time.**
+[Car API](https://github.com/PatriQ94/CoreAPITemplate.git), which serve as the back-end for authentication and data retrieval. In order to fully see the front-end and the back-end working together you **need to run both projects at the same time.**
 
 **The main purpose of the project is to be used as a reference implementation in case of need.**
 
@@ -82,6 +82,7 @@ If the back-end is accessible, feel free to register a new account and then expl
 | 8.7.2020  | Improved docs, progress on Add new car popup                                           |
 | 13.7.2020 | Implemented automatic JWT token refreshing                                             |
 | 14.7.2020 | Completed "Add new car" and "Remove car" features                                      |
+| 17.7.2020 | Added transitions between pages and started working on popup for updating car km       |
 | 23.7.2020 | Added license                                                                          |
 
 ## License
