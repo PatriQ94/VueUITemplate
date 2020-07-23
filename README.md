@@ -9,7 +9,8 @@
   <a href="#prerequisites">Prerequisites</a> ◈
   <a href="#build-and-run">Build and run</a> ◈
   <a href="#how-to-test">How to test</a> ◈
-  <a href="#changelog">Changelog</a>
+  <a href="#changelog">Changelog</a> ◈
+  <a href="#license">License</a>
 </p>
 
 ## About
@@ -81,3 +82,8 @@ If the back-end is accessible, feel free to register a new account and then expl
 | 8.7.2020  | Improved docs, progress on Add new car popup                                           |
 | 13.7.2020 | Implemented automatic JWT token refreshing                                             |
 | 14.7.2020 | Completed "Add new car" and "Remove car" features                                      |
+| 23.7.2020 | Added license                                                                          |
+
+## License
+
+See the [LICENSE](LICENSE.md) file for license rights and limitations (MIT).
