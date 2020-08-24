@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     if (store.getters.loggedIn) {
       //Redirect to garage route
       next({
-        name: "garage"
+        name: "moviesearch"
       });
     } else {
       next();

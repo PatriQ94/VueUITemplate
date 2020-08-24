@@ -3,6 +3,7 @@ import About from "./views/About.vue";
 import Garage from "./views/Garage.vue";
 import Login from "./views/Login.vue";
 import Logout from "./components/Logout.vue";
+import MovieSearch from "./views/MovieSearch.vue";
 
 const routes = [
   {
@@ -21,6 +22,15 @@ const routes = [
     meta: {
       requiresAuth: true,
       title: "Garage"
+    }
+  },
+  {
+    path: "/moviesearch",
+    name: "moviesearch",
+    component: MovieSearch,
+    meta: {
+      requiresAuth: true,
+      title: "MovieSearch"
     }
   },
   {

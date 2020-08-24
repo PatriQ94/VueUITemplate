@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app v-bind:style="{ background: colors.backgroundColor }">
     <v-snackbar
       v-model="notification.show"
       :color="notification.color"
@@ -14,25 +14,37 @@
         >
       </template>
     </v-snackbar>
-    <v-app-bar app>
-      <v-toolbar-title class="headline">
-        <span class="font-weight-light">Car</span>
+    <v-app-bar flat app color="transparent" hide-on-scroll>
+      <v-toolbar-title class="headline white--text">
+        <span class="font-weight-light">Movie</span>
         <span>API</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn v-if="!loggedIn" text to="/">
+      <v-btn class="white--text" v-if="!loggedIn" text to="/">
         <span>Home</span>
       </v-btn>
-      <v-btn v-if="loggedIn" text to="/garage">
-        <span>Garage</span>
+      <v-btn class="white--text" v-if="loggedIn" text to="/moviesearch">
+        <span>Movie search</span>
       </v-btn>
-      <v-btn v-if="loggedIn" text to="/about">
+      <v-btn class="white--text" v-if="loggedIn" text to="/about">
         <span>About</span>
       </v-btn>
-      <v-btn v-if="!loggedIn" text to="/login">
+      <v-btn
+        class="white--text"
+        :style="logoutLoginButtonColor"
+        v-if="!loggedIn"
+        text
+        to="/login"
+      >
         <span>Login/Register</span>
       </v-btn>
-      <v-btn v-if="loggedIn" text to="/logout">
+      <v-btn
+        class="white--text"
+        :style="logoutLoginButtonColor"
+        v-if="loggedIn"
+        text
+        to="/logout"
+      >
         <span>Logout</span>
         <v-icon right>exit_to_app</v-icon>
       </v-btn>
@@ -47,7 +59,7 @@
       </v-container>
     </v-main>
     <v-footer
-      color="blue-grey lighten-4"
+      color="#355B6D"
       :elevation="24"
       absolute
       class="font-weight-medium"
@@ -91,7 +103,12 @@ export default {
     return {
       connectionBtnColor: "normal",
       loadInProgress: false,
-      timeout: 3000
+      timeout: 3000,
+      colors: {
+        //backgroundColor: "#0B172A"
+        backgroundColor: "#1B3F52"
+      },
+      logoutLoginButtonColor: { background: "#BC4123" }
     };
   },
   computed: {
