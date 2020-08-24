@@ -32,6 +32,7 @@ export default {
   name: "Footer",
   data() {
     return {
+      loadInProgress: false,
       connectionBtnColor: "normal"
     };
   },

@@ -54,7 +54,6 @@ export default {
   },
   data() {
     return {
-      loadInProgress: false,
       timeout: 3000,
       colors: {
         //backgroundColor: "#0B172A"

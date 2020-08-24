@@ -23,7 +23,7 @@
                 >
                   {{ movie.title }}
                 </div> -->
-                <div class="font-weight-black ma-4 line-clamp">
+                <div class="font-weight-black ma-2 line-clamp">
                   <span v-bind="attrs" v-on="on" class="black--text">{{
                     movie.title
                   }}</span>
@@ -31,11 +31,12 @@
               </template>
               <span>{{ movie.titleFull }}</span>
             </v-tooltip>
-
-            <v-card-subtitle>
-              Release: {{ movie.releaseDate }}
-            </v-card-subtitle>
-            <v-card-actions>
+            <div class="font-weight-light ma-2 line-clamp">
+              <span class="black--text">
+                {{ movie.releaseDate }}
+              </span>
+            </div>
+            <v-card-actions class="mt-n8">
               <span class="black--text caption mr-2">
                 ({{ movie.voteAverage }})
               </span>
