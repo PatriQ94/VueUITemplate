@@ -14,41 +14,9 @@
         >
       </template>
     </v-snackbar>
-    <v-app-bar flat app color="transparent" hide-on-scroll>
-      <v-toolbar-title class="headline white--text">
-        <span class="font-weight-light">Movie</span>
-        <span>API</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn class="white--text" v-if="!loggedIn" text to="/">
-        <span>Home</span>
-      </v-btn>
-      <v-btn class="white--text" v-if="loggedIn" text to="/moviesearch">
-        <span>Movie search</span>
-      </v-btn>
-      <v-btn class="white--text" v-if="loggedIn" text to="/about">
-        <span>About</span>
-      </v-btn>
-      <v-btn
-        class="white--text"
-        :style="logoutLoginButtonColor"
-        v-if="!loggedIn"
-        text
-        to="/login"
-      >
-        <span>Login/Register</span>
-      </v-btn>
-      <v-btn
-        class="white--text"
-        :style="logoutLoginButtonColor"
-        v-if="loggedIn"
-        text
-        to="/logout"
-      >
-        <span>Logout</span>
-        <v-icon right>exit_to_app</v-icon>
-      </v-btn>
-    </v-app-bar>
+
+    <!-- App bar on top of the screen -->
+    <AppBar></AppBar>
 
     <!-- Main content with vue-router-->
     <v-main>
@@ -58,39 +26,24 @@
         </transition>
       </v-container>
     </v-main>
-    <v-footer
-      color="#355B6D"
-      :elevation="24"
-      absolute
-      class="font-weight-medium"
-      app
-    >
-      <v-col heigth="200" class="text-center" cols="12">
-        <v-tooltip top>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              v-bind:color="connectionBtnColor"
-              @click="checkConnection()"
-              v-bind="attrs"
-              v-on="on"
-            >
-              <span>Test connection</span>
-              <v-icon right>bluetooth</v-icon>
-            </v-btn>
-          </template>
-          <span>Check connection with the back-end server</span>
-        </v-tooltip>
-      </v-col>
-    </v-footer>
+
+    <!-- Footer on bottom of the screen -->
+    <Footer></Footer>
   </v-app>
 </template>
 
 <script>
 import api from "@/api";
 import { mapState } from "vuex";
+import AppBar from "./components/AppBar";
+import Footer from "./components/Footer";
 
 export default {
   name: "App",
+  components: {
+    AppBar,
+    Footer
+  },
   watch: {
     $route: {
       immediate: true,
@@ -101,59 +54,18 @@ export default {
   },
   data() {
     return {
-      connectionBtnColor: "normal",
       loadInProgress: false,
       timeout: 3000,
       colors: {
         //backgroundColor: "#0B172A"
         backgroundColor: "#1B3F52"
-      },
-      logoutLoginButtonColor: { background: "#BC4123" }
+      }
     };
   },
   computed: {
-    ...mapState(["notification"]),
-    loggedIn() {
-      return this.$store.getters.loggedIn;
-    }
+    ...mapState(["notification"])
   },
-  methods: {
-    checkConnection() {
-      if (this.loadInProgress == true) {
-        return;
-      }
-      this.loadInProgress = true;
-      api
-        .get("/health")
-        .then(response => {
-          this.connectionBtnColor = "success";
-          this.$store.dispatch("raiseNotification", {
-            show: true,
-            color: "success",
-            text: "Connected with the back-end API"
-          });
-
-          setTimeout(() => {
-            this.loadInProgress = false;
-            this.connectionBtnColor = "normal";
-          }, this.timeout);
-          return response;
-        })
-        .catch(error => {
-          this.$store.dispatch("raiseNotification", {
-            show: true,
-            color: "error",
-            text: "Not connected with the back-end API"
-          });
-          this.connectionBtnColor = "error";
-          setTimeout(() => {
-            this.loadInProgress = false;
-            this.connectionBtnColor = "normal";
-          }, this.timeout);
-          return error;
-        });
-    }
-  }
+  methods: {}
 };
 </script>
 
