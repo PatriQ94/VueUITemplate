@@ -25,7 +25,7 @@ router.beforeEach((to, from, next) => {
     }
   } else if (to.matched.some(record => record.meta.requiresVisitor)) {
     if (store.getters.loggedIn) {
-      //Redirect to garage route
+      //Redirect to moviesearch route
       next({
         name: "moviesearch"
       });

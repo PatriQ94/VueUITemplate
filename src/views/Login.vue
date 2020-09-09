@@ -80,7 +80,7 @@ export default {
               refreshToken: refreshToken
             })
             .then(response => {
-              this.$router.push({ name: "garage" });
+              this.$router.push({ name: "moviesearch" });
               this.loading = false;
               return response;
             })

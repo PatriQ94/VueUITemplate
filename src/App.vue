@@ -48,7 +48,7 @@ export default {
     $route: {
       immediate: true,
       handler(to) {
-        document.title = to.meta.title || "CarAPI";
+        document.title = to.meta.title || "MovieAPI";
       }
     }
   },

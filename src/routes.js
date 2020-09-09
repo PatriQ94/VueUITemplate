@@ -1,6 +1,5 @@
 import LandingPage from "./views/LandingPage.vue";
 import About from "./views/About.vue";
-import Garage from "./views/Garage.vue";
 import Login from "./views/Login.vue";
 import Logout from "./components/Logout.vue";
 import MovieSearch from "./views/MovieSearch.vue";
@@ -13,15 +12,6 @@ const routes = [
     meta: {
       requiresVisitor: true,
       title: "Home"
-    }
-  },
-  {
-    path: "/garage",
-    name: "garage",
-    component: Garage,
-    meta: {
-      requiresAuth: true,
-      title: "Garage"
     }
   },
   {
