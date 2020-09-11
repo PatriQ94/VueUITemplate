@@ -57,7 +57,7 @@
             </v-card-actions>
 
             <v-expand-transition>
-              <div v-if="hover">
+              <div v-show="hover">
                 <v-divider></v-divider>
                 <v-card-actions>
                   <!-- Heart icon to add movie to the favourite list -->
@@ -96,13 +96,13 @@
                         v-bind="attrs"
                         v-on="on"
                       >
-                        <v-icon v-if="movie.favourite" medium
+                        <v-icon v-if="movie.seen" medium
                           >mdi-eye-check-outline</v-icon
                         >
                         <v-icon v-else medium>mdi-eye-off-outline</v-icon>
                       </v-btn>
                     </template>
-                    <span v-if="movie.favourite">Already seen</span>
+                    <span v-if="movie.seen">Already seen</span>
                     <span v-else>Mark as seen</span>
                   </v-tooltip>
                   <v-spacer></v-spacer>
@@ -134,8 +134,8 @@
                 <v-btn text>More info</v-btn>
               </div>
             </v-expand-transition>
-          </v-card></v-hover
-        >
+          </v-card>
+        </v-hover>
       </v-flex>
     </v-layout>
   </v-container>
