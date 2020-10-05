@@ -138,6 +138,9 @@
         </v-hover>
       </v-flex>
     </v-layout>
+    <v-overlay :value="overlay">
+      <v-progress-circular indeterminate size="64"></v-progress-circular>
+    </v-overlay>
   </v-container>
 </template>
 
@@ -148,46 +151,78 @@ export default {
   data() {
     return {
       movies: [],
-      cardColors: { background: "#A5A6AC", border: "3px solid #BC4123" },
-      searchKeyWord: ""
+      overlay: false,
+      cardColors: {
+        background: "#A5A6AC"
+        // border: "3px solid #BC4123"
+      },
+      searchKeyWord: "",
+      page: 1,
+      lastSearch: ""
     };
   },
   methods: {
-    getByPopularity() {
-      api
-        .get("/api/Movie/GetByPopularity")
-        .then(response => {
-          this.movies = response.data.value;
-        })
-        .catch(() => {
-          this.$store.dispatch("raiseNotification", {
-            show: true,
-            color: "error",
-            text: "An error occured"
-          });
-        });
-    },
-    searchByFilters() {
-      this.marker = !this.marker;
+    searchByFilters(addToExisting) {
+      if (this.lastSearch != this.searchKeyWord) {
+        this.page = 1;
+        this.movies = [];
+        console.log(
+          "Reseting page counter cause the search keyword changed:" + this.page
+        );
+      }
+
+      console.log(
+        "Searching by keyword:" + this.searchKeyWord + ", and page:" + this.page
+      );
+
       api
         .post("/api/Movie/GetByKeyWords", {
-          SearchKeyWord: this.searchKeyWord
+          SearchKeyWord: this.searchKeyWord,
+          Page: this.page
         })
         .then(response => {
-          this.movies = response.data.value;
+          if (addToExisting == true) {
+            response.data.value.forEach(movie => {
+              this.movies.push(movie);
+            });
+          } else {
+            this.movies = response.data.value;
+          }
+          this.overlay = false;
         })
         .catch(error => {
           console.log(error);
+          this.overlay = false;
           this.$store.dispatch("raiseNotification", {
             show: true,
             color: "error",
             text: "An error occured"
           });
         });
+      this.lastSearch = this.searchKeyWord;
+    },
+    scroll(person) {
+      window.onscroll = () => {
+        let bottomOfWindow =
+          document.documentElement.scrollTop + window.innerHeight ===
+          document.documentElement.offsetHeight;
+
+        if (bottomOfWindow) {
+          if (this.overlay == true) {
+            return;
+          }
+          this.overlay = true;
+          this.page = this.page + 1;
+          this.searchByFilters(true);
+        }
+      };
     }
   },
   created() {
-    this.getByPopularity();
+    this.searchByFilters(false);
+  },
+  mounted() {
+    this.scroll(this.person);
   }
 };
 </script>
